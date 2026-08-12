@@ -4,15 +4,26 @@ Signed, binary-only Linux releases for the private Syndicate coding-agent host.
 
 Syndicate turns an owned Linux server into a private coding-agent powerhouse. PacketADE remains the flagship desktop UI; the Host executes installed Codex, Claude Code, PacketCode, and shell panes under the server user's authority.
 
-## Install v0.1.0
+## Install v0.1.3
 
-Review the immutable installer first:
+The signed x64/arm64
+[`v0.1.3` release](https://github.com/packetloss404/syndicate-releases/releases/tag/v0.1.3)
+is live. Install it rootlessly with:
+
+```bash
+curl --proto '=https' --tlsv1.2 -fsSL \
+  https://github.com/packetloss404/syndicate-releases/releases/download/v0.1.3/install.sh \
+  | bash -s -- --version v0.1.3
+```
+
+For a review-first bootstrap, download those exact immutable bytes before
+running them:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -fsSLo /tmp/syndicate-install.sh \
-  https://github.com/packetloss404/syndicate-releases/releases/download/v0.1.0/install.sh
+  https://github.com/packetloss404/syndicate-releases/releases/download/v0.1.3/install.sh
 less /tmp/syndicate-install.sh
-bash /tmp/syndicate-install.sh --version v0.1.0
+bash /tmp/syndicate-install.sh --version v0.1.3
 ```
 
 The installer pins the Syndicate Ed25519 release key, verifies `SHA256SUMS.sig`, verifies the selected x64/arm64 archive, rejects unsafe archive members, installs rootlessly under `~/.local/share/syndicate`, and keeps state under `~/.local/state/syndicate`.
