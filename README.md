@@ -7,16 +7,16 @@ Linux machine you control. Its browser dashboard and tmux workstation share
 Host-owned sessions and retained Git worktrees. Provider login stays with each
 official CLI. Syndicate is standalone.
 
-## Install v0.3.1
+## Install v0.3.2
 
-The signed [v0.3.1 release](https://github.com/packetloss404/syndicate-releases/releases/tag/v0.3.1)
+The signed [v0.3.2 release](https://github.com/packetloss404/syndicate-releases/releases/tag/v0.3.2)
 contains portable Linux x64 and arm64 runtimes built on Ubuntu 24.04, including Node.js. Run the
 rootless installer as the intended unprivileged user:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -fsSL \
-  https://github.com/packetloss404/syndicate-releases/releases/download/v0.3.1/install.sh \
-  | bash -s -- --version v0.3.1
+  https://github.com/packetloss404/syndicate-releases/releases/download/v0.3.2/install.sh \
+  | bash -s -- --version v0.3.2
 ```
 
 This installs Syndicate, its user services and the `~/.local/bin/syndicate`
@@ -29,8 +29,8 @@ repository as a normal user with sudo access:
 
 ```bash
 curl --proto '=https' --tlsv1.2 -fsSL \
-  https://github.com/packetloss404/syndicate-releases/releases/download/v0.3.1/bootstrap-server.sh \
-  | sudo bash -s -- --version v0.3.1 --user "$(id -un)" \
+  https://github.com/packetloss404/syndicate-releases/releases/download/v0.3.2/bootstrap-server.sh \
+  | sudo bash -s -- --version v0.3.2 --user "$(id -un)" \
       --repository "$PWD" --agents codex,claude --ssh-auto-attach
 ```
 
@@ -48,6 +48,13 @@ Do not mix scripts and runtimes from different releases. Immutable release
 assets are authoritative; the installer on `main` is a mutable convenience copy.
 
 ## Execution and persistence
+
+Version 0.3.2 fixes keyboard focus after browser input takeover and preserves
+terminal grids during replay and resize. View-only terminals disclose paused
+input and scroll the native grid. Historical geometry requires the new native
+daemon: stop active sessions deliberately before restarting it, then request
+new sessions in the retained worktrees. A compatible Host-only upgrade keeps
+existing PTYs alive and cannot retrofit their older replay history.
 
 The Host binds to loopback; bootstrap's separate proxy supplies LAN HTTPS
 access. `syndicate dashboard --no-open` prints a short-lived, single-use browser
